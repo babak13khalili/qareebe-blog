@@ -1,22 +1,24 @@
-const langBtn = document.getElementById("lang-toggle");
-const themeBtn = document.getElementById("theme-toggle");
+const langToggle = document.getElementById("lang-toggle");
+const themeToggle = document.getElementById("theme-toggle");
 const htmlTag = document.documentElement;
 
-// --- ۱. مدیریت تغییر زبان و جهت صفحه ---
-langBtn.addEventListener("click", () => {
+// --- ۱. مدیریت زبان ---
+langToggle.addEventListener("click", () => {
   const isRtl = htmlTag.dir === "rtl";
+  const faSpan = langToggle.querySelector(".lang-fa");
+  const enSpan = langToggle.querySelector(".lang-en");
 
   if (isRtl) {
-    // تغییر به انگلیسی
     htmlTag.dir = "ltr";
     htmlTag.lang = "en";
-    langBtn.textContent = "فا";
+    faSpan.classList.remove("active");
+    enSpan.classList.add("active");
     updateText("en");
   } else {
-    // تغییر به فارسی
     htmlTag.dir = "rtl";
     htmlTag.lang = "fa";
-    langBtn.textContent = "EN";
+    enSpan.classList.remove("active");
+    faSpan.classList.add("active");
     updateText("fa");
   }
 });
@@ -43,11 +45,9 @@ function updateText(lang) {
   document.getElementById("page-title").textContent = content[lang].pageTitle;
 }
 
-// --- ۲. مدیریت تغییر تم (روشن/تاریک) ---
-themeBtn.addEventListener("click", () => {
+// --- ۲. مدیریت تم ---
+themeToggle.addEventListener("click", () => {
   const currentTheme = htmlTag.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
-
   htmlTag.setAttribute("data-theme", newTheme);
-  themeBtn.textContent = newTheme === "dark" ? "☀️" : "🌙";
 });

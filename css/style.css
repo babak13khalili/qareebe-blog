@@ -11,7 +11,6 @@
   --color-medium: #7c7c7c;
 }
 
-/* حالت تاریک */
 [data-theme="dark"] {
   --color-bg: #1a1a1a;
   --color-dark: #f4f0e8;
@@ -23,21 +22,14 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  transition:
-    background 0.5s,
-    color 0.5s;
-}
-
 body {
   font-family: "AriaVFGX", sans-serif;
   background-color: var(--color-bg);
   color: var(--color-dark);
-  line-height: 1.6;
+  margin: 0;
+  transition:
+    background 0.5s,
+    color 0.5s;
 }
 
 .main-wrapper {
@@ -53,98 +45,95 @@ body {
   flex: 1;
 }
 
-/* --- 3. New Fixed Buttons --- */
-.fix-btn {
-  position: fixed;
-  z-index: 1000;
-  width: 50px;
-  height: 50px;
-  border: 1px solid var(--color-dark);
-  background: transparent;
-  color: var(--color-dark);
+/* --- 3. Headers & Alignment --- */
+.header-top,
+.main-footer {
+  display: flex;
+  justify-content: space-between; /* چسباندن محتوا به دو طرف */
+  align-items: baseline;
+}
+
+.main-header {
+  margin-bottom: 6rem;
+}
+.main-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin: 0;
+  font-weight: 900;
+}
+
+/* --- 4. Toggles Design --- */
+.toggle-wrapper,
+.theme-switch {
   cursor: pointer;
-  font-family: inherit;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+/* دکمه زبان */
+.toggle-wrapper {
+  font-size: 0.8rem;
+  gap: 4px;
+  color: var(--color-medium);
+}
+.toggle-wrapper span.active {
+  color: var(--color-dark);
+  font-weight: 900;
+}
+.divider {
+  opacity: 0.3;
+}
+
+/* دکمه تم (دایره در دایره) */
+.outer-circle {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--color-dark);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.fix-btn:hover {
-  background: var(--color-dark);
-  color: var(--color-bg);
+.inner-circle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-dark);
+  border-radius: 50%;
 }
 
-/* موقعیت در حالت راست‌به‌چپ (Farsi) */
-[dir="rtl"] .top-btn {
-  top: 20px;
-  left: 20px;
+/* تغییر رنگ دایره داخلی در حالت روشن برای دیده شدن */
+[data-theme="light"] .inner-circle {
+  background-color: var(--color-dark);
 }
-[dir="rtl"] .bottom-btn {
-  bottom: 20px;
-  left: 20px;
+[data-theme="dark"] .inner-circle {
+  background-color: var(--color-dark);
 }
 
-/* موقعیت در حالت چپ‌به‌راست (English) */
-[dir="ltr"] .top-btn {
-  top: 20px;
-  right: 20px;
-}
-[dir="ltr"] .bottom-btn {
-  bottom: 20px;
-  right: 20px;
-}
-
-/* --- 4. Content Styles --- */
-.main-header {
-  margin-bottom: 6rem;
-}
-
-.main-header h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 0.5rem;
-  font-weight: 900;
-}
-
+/* --- 5. Post List --- */
 .post-list ul {
   list-style: none;
   padding: 0;
 }
-
 .post-item {
   padding: 1.5rem 0;
   border-bottom: 0.5px solid var(--color-medium);
 }
-
 .post-item a {
   text-decoration: none;
   color: inherit;
   font-weight: 700;
   font-size: 1.8rem;
-  transition: opacity 0.3s;
-}
-
-.post-item a:hover {
-  opacity: 0.7;
 }
 
 .main-footer {
   margin-top: 5rem;
-  padding-bottom: 2rem;
-  font-size: 0.9rem;
-  color: var(--color-medium);
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--color-medium);
 }
 
 @media (max-width: 600px) {
   .main-wrapper {
     max-width: 90%;
-  }
-  .main-header {
-    margin-bottom: 3rem;
-  }
-  .post-item a {
-    font-size: 1.4rem;
   }
 }

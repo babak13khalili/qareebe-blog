@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <button id="lang-toggle" class="fix-btn top-btn">EN</button>
-    <button id="theme-toggle" class="fix-btn bottom-btn">🌙</button>
-
     <div class="main-wrapper">
       <header class="main-header">
-        <h1 id="main-title">افکار، احوال و روزمرگی‌ها</h1>
+        <div class="header-top">
+          <h1 id="main-title">افکار، احوال و روزمرگی‌ها</h1>
+          <div id="lang-toggle" class="toggle-wrapper">
+            <span class="lang-en">EN</span>
+            <span class="divider">/</span>
+            <span class="lang-fa active">فا</span>
+          </div>
+        </div>
         <p id="main-desc">برای ثبت، مرور و میراث</p>
       </header>
 
@@ -39,6 +43,11 @@
 
       <footer class="main-footer">
         <p id="footer-text">ساخت بابک</p>
+        <div id="theme-toggle" class="theme-switch">
+          <div class="outer-circle">
+            <div class="inner-circle"></div>
+          </div>
+        </div>
       </footer>
     </div>
 
