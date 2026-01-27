@@ -1,44 +1,53 @@
-// 1. FAB Toggle
-const fabContainer = document.querySelector(".fab-container");
-const fabMain = document.getElementById("fab-main");
-
-fabMain.addEventListener("click", () => {
-  fabContainer.classList.toggle("active");
-  fabMain.textContent = fabContainer.classList.contains("active") ? "×" : "-";
-});
-
-// 2. Theme Toggle
-const themeBtn = document.getElementById("theme-toggle");
-themeBtn.addEventListener("click", () => {
-  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  const newTheme = isDark ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", newTheme);
-
-  const isRtl = document.documentElement.dir === "rtl";
-  if (newTheme === "dark") {
-    themeBtn.textContent = isRtl ? "روشن" : "Day";
-  } else {
-    themeBtn.textContent = isRtl ? "تاریک" : "Night";
-  }
-});
-
-// 3. Language Toggle
 const langBtn = document.getElementById("lang-toggle");
+const themeBtn = document.getElementById("theme-toggle");
+const htmlTag = document.documentElement;
+
+// --- ۱. مدیریت تغییر زبان و جهت صفحه ---
 langBtn.addEventListener("click", () => {
-  const isRtl = document.documentElement.dir === "rtl";
+  const isRtl = htmlTag.dir === "rtl";
+
   if (isRtl) {
-    document.documentElement.dir = "ltr";
-    langBtn.textContent = "FA";
-    document.getElementById("main-title").textContent = "Thoughts & Memories";
-    document.getElementById("main-desc").textContent =
-      "To record, review, and legacy";
-    document.getElementById("footer-text").textContent = "By Babak";
+    // تغییر به انگلیسی
+    htmlTag.dir = "ltr";
+    htmlTag.lang = "en";
+    langBtn.textContent = "فا";
+    updateText("en");
   } else {
-    document.documentElement.dir = "rtl";
+    // تغییر به فارسی
+    htmlTag.dir = "rtl";
+    htmlTag.lang = "fa";
     langBtn.textContent = "EN";
-    document.getElementById("main-title").textContent =
-      "افکار، احوال و روزمرگی‌ها";
-    document.getElementById("main-desc").textContent = "برای ثبت، مرور و میراث";
-    document.getElementById("footer-text").textContent = "ساخت بابک";
+    updateText("fa");
   }
+});
+
+function updateText(lang) {
+  const content = {
+    en: {
+      title: "Thoughts & Memories",
+      desc: "To record, review, and legacy",
+      footer: "By Babak",
+      pageTitle: "Thoughts, Life & Daily Notes",
+    },
+    fa: {
+      title: "افکار، احوال و روزمرگی‌ها",
+      desc: "برای ثبت، مرور و میراث",
+      footer: "ساخت بابک",
+      pageTitle: "افکار، احوال و روزمرگی‌ها",
+    },
+  };
+
+  document.getElementById("main-title").textContent = content[lang].title;
+  document.getElementById("main-desc").textContent = content[lang].desc;
+  document.getElementById("footer-text").textContent = content[lang].footer;
+  document.getElementById("page-title").textContent = content[lang].pageTitle;
+}
+
+// --- ۲. مدیریت تغییر تم (روشن/تاریک) ---
+themeBtn.addEventListener("click", () => {
+  const currentTheme = htmlTag.getAttribute("data-theme");
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  htmlTag.setAttribute("data-theme", newTheme);
+  themeBtn.textContent = newTheme === "dark" ? "☀️" : "🌙";
 });
