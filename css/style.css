@@ -17,13 +17,15 @@
   --color-medium: #a0a0a0;
 }
 
-/* --- ۲. ساختار کلی --- */
+/* --- ۲. ساختار کلی و اصلاح موبایل --- */
 * {
   box-sizing: border-box;
+  /* حذف کادر مربعی محو هنگام کلیک در موبایل */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 body {
-  /* فونت پیش‌فرض فارسی */
   font-family: "AriaVFGX", sans-serif;
   background-color: var(--color-bg);
   color: var(--color-dark);
@@ -38,7 +40,7 @@ body {
 html[lang="en"] body {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+    sans-serif !important;
 }
 
 .main-wrapper {
@@ -92,7 +94,7 @@ html[lang="en"] body {
 .main-header {
   margin-bottom: 4rem;
   text-align: start;
-  min-height: 120px;
+  min-height: 120px; /* رزرو فضا برای جلوگیری از پرش */
 }
 
 .main-header h1 {
@@ -123,6 +125,7 @@ html[lang="en"] body {
 .circle-btn {
   cursor: pointer;
   transition: all 0.3s;
+  user-select: none;
 }
 
 .text-lang-btn {
@@ -148,8 +151,9 @@ html[lang="en"] body {
   border-radius: 50%;
 }
 
-/* --- بخش انیمیشن‌ها --- */
+/* --- ۶. انیمیشن‌ها --- */
 
+/* انیمیشن مورف برای هدر */
 .morph-header {
   animation: headerMorph 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -167,6 +171,7 @@ html[lang="en"] body {
   }
 }
 
+/* انیمیشن فید برای لیست پست‌ها */
 .simple-fade {
   animation: fadeOnly 1s ease-in-out forwards;
 }
@@ -180,6 +185,7 @@ html[lang="en"] body {
   }
 }
 
+/* --- ۷. هاور و مدیا کوئری --- */
 @media (hover: hover) {
   .post-link:hover {
     opacity: 0.6;
@@ -198,5 +204,8 @@ html[lang="en"] body {
   }
   .post-list-container {
     max-width: 90%;
+  }
+  .main-header {
+    min-height: 100px; /* کمی کوچک‌تر برای موبایل */
   }
 }

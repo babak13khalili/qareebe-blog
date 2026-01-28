@@ -1,18 +1,17 @@
 const langToggle = document.getElementById("lang-toggle");
+const themeToggle = document.getElementById("theme-toggle"); // اضافه شد
 const htmlTag = document.documentElement;
 
+// --- منطق تغییر زبان ---
 langToggle.addEventListener("click", () => {
   const isRtl = htmlTag.dir === "rtl";
 
-  // المان‌هایی که انیمیشن می‌گیرند
   const headerEls = [
     document.getElementById("main-title"),
     document.getElementById("main-desc"),
   ];
-  // انتخاب لینک‌ها و تاریخ‌ها
   const postItems = document.querySelectorAll(".post-link, .post-date");
 
-  // ۱. شروع فاز مخفی‌سازی
   headerEls.forEach((el) => {
     el.classList.remove("morph-header");
     el.style.opacity = "0";
@@ -23,10 +22,9 @@ langToggle.addEventListener("click", () => {
   });
 
   setTimeout(() => {
-    // ۲. تغییر تگ lang و جهت صفحه (این باعث تغییر فونت در CSS می‌شود)
     if (isRtl) {
       htmlTag.dir = "ltr";
-      htmlTag.setAttribute("lang", "en"); // بسیار مهم برای تغییر فونت
+      htmlTag.setAttribute("lang", "en");
       langToggle.textContent = "فـا";
       updateTexts("en");
     } else {
@@ -36,14 +34,12 @@ langToggle.addEventListener("click", () => {
       updateTexts("fa");
     }
 
-    // ۳. اجرای انیمیشن مورف برای هدر
     headerEls.forEach((el) => {
       el.style.opacity = "";
-      void el.offsetWidth; // ریست کردن انیمیشن
+      void el.offsetWidth;
       el.classList.add("morph-header");
     });
 
-    // ۴. اجرای انیمیشن فید برای پست‌ها (تاریخ و عنوان)
     postItems.forEach((el) => {
       el.style.opacity = "";
       void el.offsetWidth;
@@ -61,8 +57,14 @@ function updateTexts(lang) {
   document.getElementById("main-title").textContent = content[lang].title;
   document.getElementById("main-desc").textContent = content[lang].desc;
 
-  // تغییر تمام المان‌هایی که دارای ویژگی data-en و data-fa هستند
   document.querySelectorAll("[data-" + lang + "]").forEach((el) => {
     el.textContent = el.getAttribute("data-" + lang);
   });
 }
+
+// --- منطق تغییر تم (اصلاح شد) ---
+themeToggle.addEventListener("click", () => {
+  const currentTheme = htmlTag.getAttribute("data-theme");
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  htmlTag.setAttribute("data-theme", newTheme);
+});
