@@ -98,10 +98,12 @@ html[lang="en"] body {
 }
 
 .main-header h1 {
-  font-size: clamp(1.5rem, 7.5vw, 4.5rem);
+  font-size: clamp(1.4rem, 6.5vw, 4.5rem);
   font-weight: 900;
   margin: 0;
   line-height: 1.1;
+  white-space: nowrap; /* جلوگیری از شکستن متن به خط دوم */
+  letter-spacing: -0.02em; /* کمی فشرده‌تر کردن حروف در نسخه انگلیسی */
 }
 
 #main-desc {
