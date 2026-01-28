@@ -9,8 +9,6 @@
   --color-bg: #f4f0e8;
   --color-dark: #222222;
   --color-medium: #7c7c7c;
-  /* اندازه پایه برای فونت‌های واکنش‌گرا */
-  --fluid-typ-base: 1rem;
 }
 
 [data-theme="dark"] {
@@ -25,6 +23,7 @@
 }
 
 body {
+  /* فونت پیش‌فرض فارسی */
   font-family: "AriaVFGX", sans-serif;
   background-color: var(--color-bg);
   color: var(--color-dark);
@@ -33,6 +32,13 @@ body {
     background 0.5s,
     color 0.5s;
   overflow-x: hidden;
+}
+
+/* فونت انگلیسی استاندارد - وقتی تگ html دارای lang="en" باشد */
+html[lang="en"] body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 .main-wrapper {
@@ -47,14 +53,14 @@ body {
 .content-area {
   flex: 1;
   display: flex;
-  justify-content: center; /* مرکز‌چین کردن محتوا */
+  justify-content: center;
   align-items: center;
 }
 
-/* --- ۳. سکشن پست‌ها (جمع‌تر شدن محتوا) --- */
+/* --- ۳. سکشن پست‌ها --- */
 .post-list-container {
   width: 100%;
-  max-width: 500px; /* محدود کردن عرض برای تمرکز بیشتر */
+  max-width: 80%;
   margin: 0 auto;
 }
 
@@ -66,130 +72,131 @@ body {
 .post-item {
   padding: 1.2rem 0;
   border-bottom: 0.5px solid var(--color-medium);
-  white-space: nowrap; /* جلوگیری از شکستن خط */
+  white-space: nowrap;
 }
 
 .post-date {
   color: var(--color-medium);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
-/* فونت هوشمند برای لینک پست‌ها */
 .post-link {
   text-decoration: none;
   color: inherit;
   font-weight: 700;
-  /* این فرمول باعث می‌شود فونت با عرض صفحه کوچک و بزرگ شود */
-  font-size: clamp(1rem, 4vw, 1.4rem);
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
   transition: opacity 0.3s;
-}
-
-.post-link:hover {
-  opacity: 0.6;
 }
 
 /* --- ۴. هدر و فوتر --- */
 .main-header {
   margin-bottom: 4rem;
   text-align: start;
+  min-height: 120px;
 }
 
 .main-header h1 {
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-size: clamp(1.5rem, 7.5vw, 4.5rem);
   font-weight: 900;
   margin: 0;
+  line-height: 1.1;
+}
+
+#main-desc {
+  margin: 0.4rem 0 0 0;
+  font-weight: 500;
+  color: var(--color-dark);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
 .main-footer {
   margin-top: 4rem;
   padding: 1rem 0;
   display: flex;
-  /* فیکس کردن جهت فوتر روی RTL تا دکمه‌ها جابه‌جا نشوند */
   direction: rtl !important;
   justify-content: space-between;
   align-items: center;
 }
 
-.text-lang-btn {
+/* --- ۵. دکمه‌ها --- */
+.text-lang-btn,
+.circle-btn {
   cursor: pointer;
-  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.text-lang-btn {
   font-size: 0.85rem;
   font-weight: 900;
-  color: var(--color-dark);
-  user-select: none;
-  transition: opacity 0.3s;
   padding: 5px;
 }
 
-.text-lang-btn:hover {
-  opacity: 0.6;
-}
-
-/* --- ۵. طراحی دکمه‌های دایره‌ای هماهنگ --- */
 .circle-btn {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border: 1.5px solid var(--color-dark);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
-}
-
-.circle-btn:hover {
-  background-color: var(--color-dark);
-  color: var(--color-bg);
-}
-
-.outer-circle {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .inner-circle {
-  width: 8px;
-  height: 8px;
-  background-color: var(
-    --color-dark
-  ); /* از متغیر استفاده کن تا در دارک مود روشن شود */
+  width: 9px;
+  height: 9px;
+  background-color: var(--color-dark);
   border-radius: 50%;
-  transition: background-color 0.3s;
 }
 
-/* هاور دکمه تم را هم اصلاح کن که دایره داخلی رنگش عوض نشود و فقط بک‌گراند بیرونی تغییر کند */
-.circle-btn:hover .inner-circle {
-  background-color: var(--color-bg);
+/* --- بخش انیمیشن‌ها --- */
+
+.morph-header {
+  animation: headerMorph 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* --- ۶. نسخه موبایل --- */
-@media (max-width: 600px) {
-  .main-wrapper {
-    max-width: 95%;
+@keyframes headerMorph {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(13px);
   }
-  .post-list-container {
-    max-width: 100%;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }
-/* حذف هاور عمومی و جایگزینی با این */
+
+.simple-fade {
+  animation: fadeOnly 1s ease-in-out forwards;
+}
+
+@keyframes fadeOnly {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (hover: hover) {
-  .text-lang-btn:hover {
+  .post-link:hover {
     opacity: 0.6;
   }
   .circle-btn:hover {
     background-color: var(--color-dark);
-    color: var(--color-bg);
   }
   .circle-btn:hover .inner-circle {
     background-color: var(--color-bg);
   }
 }
 
-/* برای موبایل که لمسی است، حالت Active اضافه می‌کنیم که فقط لحظه لمس حس شود */
-.text-lang-btn:active,
-.circle-btn:active {
-  opacity: 0.4;
+@media (max-width: 600px) {
+  .main-wrapper {
+    max-width: 92%;
+  }
+  .post-list-container {
+    max-width: 90%;
+  }
 }

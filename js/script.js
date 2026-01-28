@@ -1,49 +1,68 @@
 const langToggle = document.getElementById("lang-toggle");
-const themeToggle = document.getElementById("theme-toggle");
 const htmlTag = document.documentElement;
 
 langToggle.addEventListener("click", () => {
   const isRtl = htmlTag.dir === "rtl";
 
-  if (isRtl) {
-    htmlTag.dir = "ltr";
-    htmlTag.lang = "en";
-    langToggle.textContent = "فـا";
-    updateText("en");
-  } else {
-    htmlTag.dir = "rtl";
-    htmlTag.lang = "fa";
-    langToggle.textContent = "En";
-    updateText("fa");
-  }
+  // المان‌هایی که انیمیشن می‌گیرند
+  const headerEls = [
+    document.getElementById("main-title"),
+    document.getElementById("main-desc"),
+  ];
+  // انتخاب لینک‌ها و تاریخ‌ها
+  const postItems = document.querySelectorAll(".post-link, .post-date");
+
+  // ۱. شروع فاز مخفی‌سازی
+  headerEls.forEach((el) => {
+    el.classList.remove("morph-header");
+    el.style.opacity = "0";
+  });
+  postItems.forEach((el) => {
+    el.classList.remove("simple-fade");
+    el.style.opacity = "0";
+  });
+
+  setTimeout(() => {
+    // ۲. تغییر تگ lang و جهت صفحه (این باعث تغییر فونت در CSS می‌شود)
+    if (isRtl) {
+      htmlTag.dir = "ltr";
+      htmlTag.setAttribute("lang", "en"); // بسیار مهم برای تغییر فونت
+      langToggle.textContent = "فـا";
+      updateTexts("en");
+    } else {
+      htmlTag.dir = "rtl";
+      htmlTag.setAttribute("lang", "fa");
+      langToggle.textContent = "En";
+      updateTexts("fa");
+    }
+
+    // ۳. اجرای انیمیشن مورف برای هدر
+    headerEls.forEach((el) => {
+      el.style.opacity = "";
+      void el.offsetWidth; // ریست کردن انیمیشن
+      el.classList.add("morph-header");
+    });
+
+    // ۴. اجرای انیمیشن فید برای پست‌ها (تاریخ و عنوان)
+    postItems.forEach((el) => {
+      el.style.opacity = "";
+      void el.offsetWidth;
+      el.classList.add("simple-fade");
+    });
+  }, 100);
 });
 
-function updateText(lang) {
+function updateTexts(lang) {
   const content = {
-    en: {
-      // حتما حروف کوچک
-      title: "Thoughts & Memories",
-      desc: "To record, review, and legacy",
-      pageTitle: "Thoughts, Life & Daily Notes",
-    },
-    fa: {
-      // حتما حروف کوچک
-      title: "افکار، احوال و روزمرگی‌ها",
-      desc: "برای ثبت، مرور و میراث",
-      pageTitle: "افکار، احوال و روزمرگی‌ها",
-    },
+    en: { title: "Thoughts & Memories", desc: "To record, review, and legacy" },
+    fa: { title: "افکار، احوال و روزمرگی‌ها", desc: "برای ثبت، مرور و میراث" },
   };
 
-  // چک کردن برای جلوگیری از ارور احتمالی
-  if (content[lang]) {
-    document.getElementById("main-title").textContent = content[lang].title;
-    document.getElementById("main-desc").textContent = content[lang].desc;
-    document.getElementById("page-title").textContent = content[lang].pageTitle;
-  }
-}
+  document.getElementById("main-title").textContent = content[lang].title;
+  document.getElementById("main-desc").textContent = content[lang].desc;
 
-themeToggle.addEventListener("click", () => {
-  const currentTheme = htmlTag.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-  htmlTag.setAttribute("data-theme", newTheme);
-});
+  // تغییر تمام المان‌هایی که دارای ویژگی data-en و data-fa هستند
+  document.querySelectorAll("[data-" + lang + "]").forEach((el) => {
+    el.textContent = el.getAttribute("data-" + lang);
+  });
+}
