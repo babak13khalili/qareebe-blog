@@ -1,4 +1,4 @@
-/* --- 1. Font & Colors --- */
+/* --- ۱. فونت و رنگ‌ها --- */
 @font-face {
   font-family: "AriaVFGX";
   src: url("../fonts/AriaVFGX.ttf") format("truetype-variations");
@@ -9,6 +9,8 @@
   --color-bg: #f4f0e8;
   --color-dark: #222222;
   --color-medium: #7c7c7c;
+  /* اندازه پایه برای فونت‌های واکنش‌گرا */
+  --fluid-typ-base: 1rem;
 }
 
 [data-theme="dark"] {
@@ -17,7 +19,7 @@
   --color-medium: #a0a0a0;
 }
 
-/* --- 2. Layout --- */
+/* --- ۲. ساختار کلی --- */
 * {
   box-sizing: border-box;
 }
@@ -30,12 +32,13 @@ body {
   transition:
     background 0.5s,
     color 0.5s;
+  overflow-x: hidden;
 }
 
 .main-wrapper {
-  max-width: 70%;
+  max-width: 80%;
   margin: 0 auto;
-  padding: 2rem 1rem 1rem;
+  padding: 2rem 1rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,97 +46,116 @@ body {
 
 .content-area {
   flex: 1;
-}
-
-/* --- 3. Headers & Alignment --- */
-.header-top,
-.main-footer {
   display: flex;
-  justify-content: space-between; /* چسباندن محتوا به دو طرف */
-  align-items: baseline;
-}
-
-.main-header {
-  margin-bottom: 6rem;
-}
-.main-header h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin: 0;
-  font-weight: 900;
-}
-
-/* --- 4. Toggles Design --- */
-.toggle-wrapper,
-.theme-switch {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
+  justify-content: center; /* مرکز‌چین کردن محتوا */
   align-items: center;
 }
 
-/* دکمه زبان */
-.toggle-wrapper {
-  font-size: 0.8rem;
-  gap: 4px;
-  color: var(--color-medium);
-}
-.toggle-wrapper span.active {
-  color: var(--color-dark);
-  font-weight: 900;
-}
-.divider {
-  opacity: 0.3;
+/* --- ۳. سکشن پست‌ها (جمع‌تر شدن محتوا) --- */
+.post-list-container {
+  width: 100%;
+  max-width: 500px; /* محدود کردن عرض برای تمرکز بیشتر */
+  margin: 0 auto;
 }
 
-/* دکمه تم (دایره در دایره) */
-.outer-circle {
-  width: 24px;
-  height: 24px;
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-item {
+  padding: 1.2rem 0;
+  border-bottom: 0.5px solid var(--color-medium);
+  white-space: nowrap; /* جلوگیری از شکستن خط */
+}
+
+.post-date {
+  color: var(--color-medium);
+  font-size: 0.9rem;
+}
+
+/* فونت هوشمند برای لینک پست‌ها */
+.post-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+  /* این فرمول باعث می‌شود فونت با عرض صفحه کوچک و بزرگ شود */
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  transition: opacity 0.3s;
+}
+
+.post-link:hover {
+  opacity: 0.6;
+}
+
+/* --- ۴. هدر و فوتر --- */
+.main-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.main-header h1 {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-weight: 900;
+  margin: 0;
+}
+
+.main-footer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+/* --- ۵. طراحی دکمه‌های دایره‌ای هماهنگ --- */
+.circle-btn {
+  width: 40px;
+  height: 40px;
   border: 1.5px solid var(--color-dark);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.circle-btn:hover {
+  background-color: var(--color-dark);
+  color: var(--color-bg);
+}
+
+#lang-text {
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.outer-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .inner-circle {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background-color: var(--color-dark);
   border-radius: 50%;
+  transition: background-color 0.3s;
 }
 
-/* تغییر رنگ دایره داخلی در حالت روشن برای دیده شدن */
-[data-theme="light"] .inner-circle {
-  background-color: var(--color-dark);
-}
-[data-theme="dark"] .inner-circle {
-  background-color: var(--color-dark);
+/* هماهنگی دایره داخلی با هاور */
+.circle-btn:hover .inner-circle {
+  background-color: var(--color-bg);
 }
 
-/* --- 5. Post List --- */
-.post-list ul {
-  list-style: none;
-  padding: 0;
-}
-.post-item {
-  padding: 1rem 4rem;
-  border-bottom: 0.5px solid var(--color-medium);
-}
-.post-item a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 700;
-  font-size: 1.3rem;
-}
-
-.main-footer {
-  margin-top: 5rem;
-  padding-top: 1rem;
-  /* border-top: 0.5px solid var(--color-medium); */
-}
-
+/* --- ۶. نسخه موبایل --- */
 @media (max-width: 600px) {
   .main-wrapper {
-    max-width: 90%;
+    max-width: 95%;
+  }
+  .post-list-container {
+    max-width: 100%;
   }
 }
