@@ -174,3 +174,22 @@ body {
     max-width: 100%;
   }
 }
+/* حذف هاور عمومی و جایگزینی با این */
+@media (hover: hover) {
+  .text-lang-btn:hover {
+    opacity: 0.6;
+  }
+  .circle-btn:hover {
+    background-color: var(--color-dark);
+    color: var(--color-bg);
+  }
+  .circle-btn:hover .inner-circle {
+    background-color: var(--color-bg);
+  }
+}
+
+/* برای موبایل که لمسی است، حالت Active اضافه می‌کنیم که فقط لحظه لمس حس شود */
+.text-lang-btn:active,
+.circle-btn:active {
+  opacity: 0.4;
+}
