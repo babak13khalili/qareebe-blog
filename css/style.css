@@ -35,7 +35,7 @@ body {
 .main-wrapper {
   max-width: 70%;
   margin: 0 auto;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem 1rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -116,20 +116,20 @@ body {
   padding: 0;
 }
 .post-item {
-  padding: 1.5rem 0;
+  padding: 1rem 4rem;
   border-bottom: 0.5px solid var(--color-medium);
 }
 .post-item a {
   text-decoration: none;
   color: inherit;
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
 }
 
 .main-footer {
   margin-top: 5rem;
   padding-top: 1rem;
-  border-top: 0.5px solid var(--color-medium);
+  /* border-top: 0.5px solid var(--color-medium); */
 }
 
 @media (max-width: 600px) {
