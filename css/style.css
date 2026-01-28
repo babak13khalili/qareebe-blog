@@ -91,7 +91,7 @@ body {
 /* --- ۴. هدر و فوتر --- */
 .main-header {
   margin-bottom: 4rem;
-  text-align: center;
+  text-align: start;
 }
 
 .main-header h1 {
@@ -102,16 +102,33 @@ body {
 
 .main-footer {
   margin-top: 4rem;
+  padding: 1rem 0;
   display: flex;
+  /* فیکس کردن جهت فوتر روی RTL تا دکمه‌ها جابه‌جا نشوند */
+  direction: rtl !important;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+}
+
+.text-lang-btn {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--color-dark);
+  user-select: none;
+  transition: opacity 0.3s;
+  padding: 5px;
+}
+
+.text-lang-btn:hover {
+  opacity: 0.6;
 }
 
 /* --- ۵. طراحی دکمه‌های دایره‌ای هماهنگ --- */
 .circle-btn {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border: 1.5px solid var(--color-dark);
   border-radius: 50%;
   display: flex;
@@ -127,25 +144,23 @@ body {
   color: var(--color-bg);
 }
 
-#lang-text {
-  font-size: 0.75rem;
-  font-weight: 900;
-}
-
 .outer-circle {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .inner-circle {
-  width: 12px;
-  height: 12px;
-  background-color: var(--color-dark);
+  width: 8px;
+  height: 8px;
+  background-color: var(
+    --color-dark
+  ); /* از متغیر استفاده کن تا در دارک مود روشن شود */
   border-radius: 50%;
   transition: background-color 0.3s;
 }
 
-/* هماهنگی دایره داخلی با هاور */
+/* هاور دکمه تم را هم اصلاح کن که دایره داخلی رنگش عوض نشود و فقط بک‌گراند بیرونی تغییر کند */
 .circle-btn:hover .inner-circle {
   background-color: var(--color-bg);
 }
